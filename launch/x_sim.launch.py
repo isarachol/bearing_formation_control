@@ -36,6 +36,13 @@ def generate_launch_description():
         get_package_share_directory('bearing_formation_control'), 'config',
         'xmobile_agent.rviz'
         )
+    
+    # teleop_node = Node(
+    #     package='teleop_twist_keyboard',
+    #     executable='teleop_twist_keyboard',
+    #     name='teleop_twist_keyboard',
+    #     remappings=[('/cmd_vel', 'diff_cont/cmd_vel_unstamped')],
+    # )
 
     return LaunchDescription([
         DeclareLaunchArgument(
@@ -47,15 +54,16 @@ def generate_launch_description():
             default_value='true',
             description='Use ros2_control if true',),
         node_robot_state_publisher,
-        Node(
-            package='bearing_formation_control',
-            executable='x_multi_state_publisher',
-            name='x_multi_state_publisher',
-            output='screen'),
+        # Node(
+        #     package='bearing_formation_control',
+        #     executable='single_state_publisher',
+        #     name='single_state_publisher',
+        #     output='screen'),
         Node(
             package='rviz2',
             executable='rviz2',
             name='rviz2',
             arguments=['-d', rviz_config],
         ),
+        # teleop_node,
     ])

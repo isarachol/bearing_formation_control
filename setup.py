@@ -30,6 +30,10 @@ setup(
         'console_scripts': [
             'multi_state_publisher = bearing_formation_control.multi_state_publisher:main',
             'x_multi_state_publisher = bearing_formation_control.x_multi_state_publisher:main',
+            'single_state_publisher = bearing_formation_control.single_state_publisher:main',
+            'spawn_turtle = bearing_formation_control.spawn_turtle:main',
+            'command_executor = bearing_formation_control.command_executor:main',
+            'logic = bearing_formation_control.logic:main',
         ],
     },
 )

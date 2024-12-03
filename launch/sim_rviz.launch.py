@@ -34,6 +34,13 @@ def generate_launch_description():
             parameters=[{'use_sim_time': use_sim_time, 'robot_description': robot_desc}],
             arguments=[urdf]),
         # Node(
+        #     package='robot_state_publisher',
+        #     executable='robot_state_publisher',
+        #     name='robot_state_publisher2',
+        #     output='screen',
+        #     parameters=[{'use_sim_time': use_sim_time, 'robot_description2': robot_desc}],
+        #     arguments=[urdf]),
+        # Node(
         #     package='joint_state_publisher_gui',
         #     executable='joint_state_publisher_gui',
         #     name='joint_state_publisher_gui',

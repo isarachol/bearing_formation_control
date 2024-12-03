@@ -40,6 +40,11 @@ class MultiStatePublisher(Node):
         odom_trans.child_frame_id = 'base_link'
         joint_state = JointState()
 
+        # odom_trans2 = TransformStamped()
+        # odom_trans2.header.frame_id = 'odom'
+        # odom_trans2.child_frame_id = 'base_link'
+        # joint_state2 = JointState()
+
         try:
             while rclpy.ok():
                 rclpy.spin_once(self)
@@ -51,6 +56,12 @@ class MultiStatePublisher(Node):
                                     'left_back_wheel_joint', 'right_back_wheel_joint']
                 joint_state.position = [left_front_wheel_joint, right_front_wheel_joint,
                                         left_back_wheel_joint, right_back_wheel_joint]
+                
+                # joint_state2.header.stamp = now.to_msg()
+                # joint_state2.name = ['left_front_wheel_joint', 'right_front_wheel_joint',
+                #                     'left_back_wheel_joint', 'right_back_wheel_joint']
+                # joint_state2.position = [left_front_wheel_joint, right_front_wheel_joint,
+                #                         left_back_wheel_joint, right_back_wheel_joint]
 
                 # update transform
                 # (moving in a circle with radius=2)
@@ -60,10 +71,18 @@ class MultiStatePublisher(Node):
                 odom_trans.transform.translation.z = 0.
                 odom_trans.transform.rotation = \
                     euler_to_quaternion(0, 0, angle + pi/2) # roll,pitch,yaw
+                
+                # odom_trans2.header.stamp = now.to_msg()
+                # odom_trans2.transform.translation.x = cos(angle+pi)*0.5
+                # odom_trans2.transform.translation.y = sin(angle+pi)*0.5
+                # odom_trans2.transform.translation.z = 0.
+                # odom_trans2.transform.rotation = \
+                #     euler_to_quaternion(0, 0, angle + pi/2) # roll,pitch,yaw
 
                 # send the joint state and transform
                 self.joint_pub.publish(joint_state)
                 self.broadcaster.sendTransform(odom_trans)
+                # self.broadcaster.sendTransform(odom_trans2)
 
                 # Create new robot state
                 # tilt += tinc
@@ -73,7 +92,7 @@ class MultiStatePublisher(Node):
                 # if height > 0.2 or height < 0.0:
                 #     hinc *= -1
                 # swivel += degree
-                left_front_wheel_joint += tinc
+                # left_front_wheel_joint += tinc
                 angle += degree/4
 
 

@@ -3,8 +3,9 @@ import os
 from ament_index_python.packages import get_package_share_directory
 
 from launch import LaunchDescription
-from launch.actions import IncludeLaunchDescription
+from launch.actions import IncludeLaunchDescription #, DeclareLaunchArgument
 from launch.launch_description_sources import PythonLaunchDescriptionSource
+from launch.substitutions import LaunchConfiguration
 
 from launch_ros.actions import Node
 
@@ -21,6 +22,14 @@ def generate_launch_description():
                 )]), launch_arguments={'use_sim_time': 'true', 'use_ros2_control': 'true'}.items()
     )
 
+    # referenced from https://automaticaddison.com/how-to-load-a-world-file-into-gazebo-ros-2/
+    # world_file_name = 'cans.world'
+    # world_path = os.path.join(get_package_share_directory(package_name), 'worlds', world_file_name)
+
+    # declare_world_cmd = DeclareLaunchArgument(name='world',
+    #                     default_value=world_path,
+    #                     description='Full path to the world model file to load')
+
     # params for higher gazebo response rate (frame rate)
     gazebo_params_file = os.path.join(get_package_share_directory(package_name), 'config', 'gazebo_params.yaml')
 
@@ -30,6 +39,7 @@ def generate_launch_description():
                     get_package_share_directory('gazebo_ros'), 'launch', 'gazebo.launch.py')]),
                     launch_arguments={'extra_gazebo_args': '--ros-args --params-file ' + gazebo_params_file}.items()
              )
+    # 'world': LaunchConfiguration('world')
 
     # Run the spawner node from the gazebo_ros package. The entity name doesn't really matter if you only have a single robot.
     spawn_entity = Node(package='gazebo_ros', executable='spawn_entity.py',
@@ -54,6 +64,7 @@ def generate_launch_description():
     # Launch them all!
     return LaunchDescription([
         x_sim,
+        # declare_world_cmd,
         gazebo,
         spawn_entity,
         diff_drive_spawner,
