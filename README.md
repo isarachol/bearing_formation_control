@@ -1,5 +1,5 @@
 # ME570-Final-Project
-ME 570 Final Project
+This repo is part of ME 570 Final Project repo. The purpose is to keep track of my own progress and document changes that is easy to follow for educational purpose.
 
 ## Tutorials
 The tutorials used to create this package are listed below
