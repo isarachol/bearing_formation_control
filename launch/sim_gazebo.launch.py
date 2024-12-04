@@ -55,11 +55,11 @@ def generate_launch_description():
     #                     output='screen')
 
     # Run diff drive controller
-    # diff_drive_spawner = Node(
-    #     package="controller_manager",
-    #     executable="spawner",
-    #     arguments=["diff_cont"],
-    # )
+    diff_drive_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["diff_cont"],
+    )
 
     # diff_drive_spawner2 = Node(
     #     package="controller_manager",
@@ -68,11 +68,17 @@ def generate_launch_description():
     # )
 
     # Run joint broad controller
-    # joint_broad_spawner = Node(
-    #     package="controller_manager",
-    #     executable="spawner",
-    #     arguments=["joint_broad"],
-    # )
+    joint_broad_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["joint_broad"],
+    )
+
+    ball_tracker_node = IncludeLaunchDescription(
+                PythonLaunchDescriptionSource([os.path.join(
+                    get_package_share_directory('ball_tracker'),'launch','ball_tracker.launch.py'
+                )]), launch_arguments={'params_file': 'src/bearing_formation_control/config/ball_tracker_params_sim.yaml'}.items()
+    )
 
     # joint_broad_spawner2 = Node(
     #     package="controller_manager",
@@ -87,8 +93,9 @@ def generate_launch_description():
         gazebo,
         spawn_entity,
         # spawn_entity2,
-        # diff_drive_spawner,
+        diff_drive_spawner,
         # diff_drive_spawner2,
-        # joint_broad_spawner,
+        joint_broad_spawner,
         # joint_broad_spawner2,
+        ball_tracker_node,
     ])
