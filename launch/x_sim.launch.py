@@ -32,10 +32,19 @@ def generate_launch_description():
         parameters=[params]
     )
 
-    rviz_config = os.path.join(
-        get_package_share_directory('bearing_formation_control'), 'config',
-        'xmobile_agent.rviz'
-        )
+    # params2 = {'robot_description2': robot_description_config, 'use_sim_time': use_sim_time}
+    # node_robot_state_publisher2 = Node(
+    #     package='robot_state_publisher',
+    #     executable='robot_state_publisher',
+    #     name='robot_state_publisher2',
+    #     output='screen',
+    #     parameters=[params2]
+    # )
+
+    # rviz_config = os.path.join(
+    #     get_package_share_directory('bearing_formation_control'), 'config',
+    #     'xmobile_agent.rviz'
+    #     )
     
     # teleop_node = Node(
     #     package='teleop_twist_keyboard',
@@ -54,16 +63,17 @@ def generate_launch_description():
             default_value='true',
             description='Use ros2_control if true',),
         node_robot_state_publisher,
+        # node_robot_state_publisher2,
         # Node(
         #     package='bearing_formation_control',
         #     executable='single_state_publisher',
         #     name='single_state_publisher',
         #     output='screen'),
-        Node(
-            package='rviz2',
-            executable='rviz2',
-            name='rviz2',
-            arguments=['-d', rviz_config],
-        ),
+        # Node(
+        #     package='rviz2',
+        #     executable='rviz2',
+        #     name='rviz2',
+        #     arguments=['-d', rviz_config],
+        # ),
         # teleop_node,
     ])

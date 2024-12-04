@@ -99,6 +99,11 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
+        marker:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
         right_back_wheel:
           Alpha: 1
           Show Axes: false
@@ -136,6 +141,8 @@ Visualization Manager:
           Value: true
         left_front_wheel:
           Value: true
+        marker:
+          Value: true
         odom:
           Value: true
         right_back_wheel:
@@ -159,6 +166,8 @@ Visualization Manager:
               left_back_wheel:
                 {}
               left_front_wheel:
+                {}
+              marker:
                 {}
               right_back_wheel:
                 {}
@@ -198,7 +207,7 @@ Visualization Manager:
         Durability Policy: Volatile
         History Policy: Keep Last
         Reliability Policy: Reliable
-        Value: /camera/image_raw/compressed
+        Value: /image_out
       Value: true
   Enabled: true
   Global Options:
@@ -286,5 +295,5 @@ Window Geometry:
   Views:
     collapsed: false
   Width: 1535
-  X: 206
-  Y: 28
+  X: 490
+  Y: 284

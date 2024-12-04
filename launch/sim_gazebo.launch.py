@@ -31,7 +31,7 @@ def generate_launch_description():
     #                     description='Full path to the world model file to load')
 
     # params for higher gazebo response rate (frame rate)
-    gazebo_params_file = os.path.join(get_package_share_directory(package_name), 'config', 'gazebo_params.yaml')
+    gazebo_params_file = os.path.join(get_package_share_directory(package_name), 'config', 'gazebo.yaml')
 
     # Include the Gazebo launch file, provided by the gazebo_ros package
     gazebo = IncludeLaunchDescription(
@@ -43,23 +43,42 @@ def generate_launch_description():
 
     # Run the spawner node from the gazebo_ros package. The entity name doesn't really matter if you only have a single robot.
     spawn_entity = Node(package='gazebo_ros', executable='spawn_entity.py',
-                        arguments=['-topic', 'robot_description',
-                                   '-entity', 'my_bot'],
+                        arguments=['-topic', '/robot_description',
+                                   '-entity', 'my_bot',
+                                   '-y', '0.5'],
                         output='screen')
+    
+    # spawn_entity2 = Node(package='gazebo_ros', executable='spawn_entity.py',
+    #                     arguments=['-topic', 'robot_description2',
+    #                                '-entity', 'my_bot2',
+    #                                '-x', '2.0'],
+    #                     output='screen')
 
     # Run diff drive controller
-    diff_drive_spawner = Node(
-        package="controller_manager",
-        executable="spawner",
-        arguments=["diff_cont"],
-    )
+    # diff_drive_spawner = Node(
+    #     package="controller_manager",
+    #     executable="spawner",
+    #     arguments=["diff_cont"],
+    # )
+
+    # diff_drive_spawner2 = Node(
+    #     package="controller_manager",
+    #     executable="spawner",
+    #     arguments=["diff_cont2"],
+    # )
 
     # Run joint broad controller
-    joint_broad_spawner = Node(
-        package="controller_manager",
-        executable="spawner",
-        arguments=["joint_broad"],
-    )
+    # joint_broad_spawner = Node(
+    #     package="controller_manager",
+    #     executable="spawner",
+    #     arguments=["joint_broad"],
+    # )
+
+    # joint_broad_spawner2 = Node(
+    #     package="controller_manager",
+    #     executable="spawner",
+    #     arguments=["joint_broad2"],
+    # )
 
     # Launch them all!
     return LaunchDescription([
@@ -67,6 +86,9 @@ def generate_launch_description():
         # declare_world_cmd,
         gazebo,
         spawn_entity,
-        diff_drive_spawner,
-        joint_broad_spawner
+        # spawn_entity2,
+        # diff_drive_spawner,
+        # diff_drive_spawner2,
+        # joint_broad_spawner,
+        # joint_broad_spawner2,
     ])
